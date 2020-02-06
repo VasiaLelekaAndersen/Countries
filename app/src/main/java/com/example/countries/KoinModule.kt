@@ -4,7 +4,6 @@ package com.example.countries
 import com.example.countries.networking.ApiInteractor
 import com.example.countries.networking.ApiInterface
 import com.example.countries.networking.ApiWrapper
-import com.example.countries.networking.BASE_URL
 import com.example.countries.repository.Repository
 import com.example.countries.repository.RepositoryImpl
 import okhttp3.OkHttpClient
@@ -15,18 +14,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
     single {
-        Retrofit.Builder().baseUrl(BASE_URL)
+        Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
             .client(get())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    single { provideApiInterface(get()) }
+    single { provideOkHttpClient() }
+}
+
+val contriesModule = module {
+    single { ApiWrapper(get()) }
+    single { ApiInteractor(get()) }
     single<Repository> {
         RepositoryImpl()
     }
-    single { provideApiInterface(get()) }
-    single { provideOkHttpClient() }
-    single { ApiWrapper(get()) }
-    single { ApiInteractor(get()) }
 }
 
 private fun provideOkHttpClient(): OkHttpClient {
