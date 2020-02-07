@@ -1,11 +1,10 @@
 package com.example.countries
 
 
-import com.example.countries.networking.ApiInteractor
-import com.example.countries.networking.ApiInterface
-import com.example.countries.networking.ApiWrapper
-import com.example.countries.repository.Repository
-import com.example.countries.repository.RepositoryImpl
+import com.example.countries.networking.CountryApiInteractor
+import com.example.countries.networking.CountryApiInterface
+import com.example.countries.repository.CountryRepository
+import com.example.countries.repository.CountryRepositoryImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -24,11 +23,10 @@ val networkModule = module {
     single { provideOkHttpClient() }
 }
 
-val contriesModule = module {
-    single { ApiWrapper(get()) }
-    single { ApiInteractor(get()) }
-    single<Repository> {
-        RepositoryImpl()
+val countriesModule = module {
+    single { CountryApiInteractor(get()) }
+    single<CountryRepository> {
+        CountryRepositoryImpl()
     }
 }
 
@@ -38,6 +36,6 @@ private fun provideOkHttpClient(): OkHttpClient {
     }).build()
 }
 
-private fun provideApiInterface(retrofit: Retrofit): ApiInterface {
-    return retrofit.create(ApiInterface::class.java)
+private fun provideApiInterface(retrofit: Retrofit): CountryApiInterface {
+    return retrofit.create(CountryApiInterface::class.java)
 }
