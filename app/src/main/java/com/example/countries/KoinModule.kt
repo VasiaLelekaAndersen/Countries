@@ -3,8 +3,12 @@ package com.example.countries
 
 import com.example.countries.networking.CountryApiInteractor
 import com.example.countries.networking.CountryApiInterface
+import com.example.countries.networking.CountryInteractorInterface
+import com.example.countries.networking.PrettyJsonResponseLogger
 import com.example.countries.repository.CountryRepository
 import com.example.countries.repository.CountryRepositoryImpl
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -18,24 +22,32 @@ val networkModule = module {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
+    single { provideGson() }
     single { provideApiInterface(get()) }
     single { provideOkHttpClient() }
 }
 
 val countriesModule = module {
-    single { CountryApiInteractor(get()) }
+    factory<CountryInteractorInterface> { CountryApiInteractor(get()) }
     single<CountryRepository> {
         CountryRepositoryImpl()
     }
 }
 
 private fun provideOkHttpClient(): OkHttpClient {
-    return OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
+    val prettyGson = PrettyJsonResponseLogger(provideGson())
+    return OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor(prettyGson).apply {
         level = HttpLoggingInterceptor.Level.BODY
     }).build()
 }
 
 private fun provideApiInterface(retrofit: Retrofit): CountryApiInterface {
     return retrofit.create(CountryApiInterface::class.java)
+}
+
+internal fun provideGson(): Gson {
+    return GsonBuilder()
+        .serializeNulls()
+        .setPrettyPrinting()
+        .create()
 }
