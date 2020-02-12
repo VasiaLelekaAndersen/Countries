@@ -1,5 +1,6 @@
 package com.example.countries.main.interfaces
 
+import androidx.fragment.app.Fragment
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.AddToEndSingleTagStrategy
@@ -18,6 +19,13 @@ interface MainInterface : MvpView {
 
     @StateStrategyType(SkipStrategy::class)
     fun showMessage(message: String)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun openFragment(fragment: Fragment)
+
+
+    @StateStrategyType(SkipStrategy::class)
+    fun openWithStackFragment(fragment: Fragment)
 }
 
 private const val BACK_BUTTON_TAG = "BACK_BUTTON_TAG"

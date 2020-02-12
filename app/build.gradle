@@ -35,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -50,11 +53,15 @@ dependencies {
     implementation 'com.github.moxy-community:moxy:2.1.1'
     implementation 'com.github.moxy-community:moxy-android:2.1.1'
     implementation "com.github.moxy-community:moxy-app-compat:2.1.1"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt 'com.github.moxy-community:moxy-compiler:2.1.1'
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:3.6.0'
+    // 'com.github.bumptech.glide:compiler:3.6.0'
+
+    implementation 'com.caverock:androidsvg-aar:1.4'
+    implementation 'com.android.volley:volley:1.1.1'
 
     //network
     implementation "com.squareup.retrofit2:retrofit:2.6.1"
@@ -80,7 +87,7 @@ dependencies {
     implementation "org.koin:koin-android-scope:2.0.1"
 // Koin Android Experimental features
     implementation "org.koin:koin-android-ext:2.0.1"
-
+    testImplementation 'org.koin:koin-test:2.0.1'
 
     testImplementation 'junit:junit:4.12'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"

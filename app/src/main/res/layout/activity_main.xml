@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@id/container"
     android:orientation="vertical"
     tools:context=".main.MainActivity">
 
@@ -15,16 +16,6 @@
         app:theme="@style/ToolBarStyle" />
 
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tablayout"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary" />
-    </androidx.viewpager.widget.ViewPager>
 
 </LinearLayout>

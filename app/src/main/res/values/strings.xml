@@ -5,4 +5,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="country_page_title">Country</string>
     <string name="search_page_title">Search</string>
+    <string name="country_capital_item_title">Capital :</string>
+    <string name="country_region_item_title">Region :</string>
+    <string name="country_language_item_title">Main language : </string>
+
+    <string name="country_details_fragment_title">Country Details</string>
+    <string name="country_list_sub_language">Sub languages :</string>
 </resources>
